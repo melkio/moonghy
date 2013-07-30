@@ -1,18 +1,27 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Moonghy
 {
     class Program
     {
+        static IEnumerable<IOperationHandler> handlers = new IOperationHandler[] 
+        {
+            new AllOperationsHandler(), new InsertOperationsHandler(), new UpdateOperationsHandler(), new Update2OperationsHandler()
+        };
+        static AggregateOperationFactory factory = new AggregateOperationFactory();
+
         static void Main(String[] args)
         {
             try 
             {
-                var client = new MongoDB.Driver.MongoClient("mongodb://localhost:27100");
+                var client = new MongoClient("mongodb://localhost:27100");
                 var server = client.GetServer();
                 var database = server.GetDatabase("local");
                 var collection = database.GetCollection("oplog.rs");
@@ -21,7 +30,7 @@ namespace Moonghy
                 // while this program is running and verify that they are echoed to the console window
 
                 // see: http://www.mongodb.org/display/DOCS/Tailable+Cursors for C++ version of this loop
-                var timestamp = BsonTimestamp.Create(0);
+                var timestamp = new BsonTimestamp(0);
                 while (true) 
                 {
                     var query = Query.GT("ts", timestamp);
@@ -34,8 +43,14 @@ namespace Moonghy
                             if (enumerator.MoveNext()) 
                             {
                                 var document = enumerator.Current;
-                                timestamp = document["ts"].AsBsonTimestamp;
-                                ProcessDocument(document);
+                                Operation operation = factory.ComposeFrom(document);
+                                
+                                handlers
+                                    .Where(h => h.ShouldHandle(operation))
+                                    .ToList()
+                                    .ForEach(h => h.Handle(operation));
+
+                                timestamp = operation.Timestamp;
                             } 
                             else 
                             {

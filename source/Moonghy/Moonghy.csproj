@@ -49,8 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregateOperationFactory.cs" />
+    <Compile Include="IOperationFactory.cs" />
+    <Compile Include="Operations\InsertOperation.cs" />
+    <Compile Include="Operations\NullOperation.cs" />
+    <Compile Include="Operation.cs" />
+    <Compile Include="OperationHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Operations\UpdateOperation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
