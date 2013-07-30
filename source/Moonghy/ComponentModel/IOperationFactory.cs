@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using System;
 
-namespace Moonghy
+namespace Moonghy.Core
 {
     public interface IOperationFactory
     {

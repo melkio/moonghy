@@ -1,10 +1,10 @@
 ﻿using MongoDB.Bson;
-using Moonghy.Operations;
+using Moonghy.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Moonghy
+namespace Moonghy.Runtime
 {
     class AggregateOperationFactory : IOperationFactory
     {
@@ -13,11 +13,6 @@ namespace Moonghy
         public String Code 
         { 
             get { return "All"; } 
-        }
-
-        public AggregateOperationFactory()
-            : this( new IOperationFactory[] { new InsertOperation.Factory(), new UpdateOperation.Factory() })
-        {
         }
 
         public AggregateOperationFactory(IOperationFactory[] factories)
@@ -32,7 +27,16 @@ namespace Moonghy
             if (factory != null)
                 return factory.ComposeFrom(document);
 
-            return new NullOperation();
+            return new NullOperation(timestamp: document["ts"].AsBsonTimestamp);
+        }
+
+        private class NullOperation : Operation
+        {
+            public NullOperation(BsonTimestamp timestamp)
+                :base(timestamp, null, null)
+            {
+
+            }
         }
     }
 }

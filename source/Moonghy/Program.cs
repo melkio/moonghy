@@ -2,6 +2,8 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
+using Moonghy.Core;
+using Moonghy.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +15,9 @@ namespace Moonghy
     {
         static IEnumerable<IOperationHandler> handlers = new IOperationHandler[] 
         {
-            new AllOperationsHandler(), new InsertOperationsHandler(), new UpdateOperationsHandler(), new Update2OperationsHandler()
+            //new AllOperationsHandler(), new InsertOperationsHandler(), new UpdateOperationsHandler(), new Update2OperationsHandler()
         };
-        static AggregateOperationFactory factory = new AggregateOperationFactory();
+        static AggregateOperationFactory factory = new AggregateOperationFactory(new IOperationFactory[] { new InsertOperationFactory(), new UpdateOperationFactory()});
 
         static void Main(String[] args)
         {
