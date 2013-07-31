@@ -2,10 +2,12 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
+using Moonghy.Configuration;
 using Moonghy.Core;
 using Moonghy.Runtime;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading;
 
@@ -15,18 +17,16 @@ namespace Moonghy
     {
         static IEnumerable<IOperationHandler> handlers = new IOperationHandler[] 
         {
-            //new AllOperationsHandler(), new InsertOperationsHandler(), new UpdateOperationsHandler(), new Update2OperationsHandler()
         };
+
         static AggregateOperationFactory factory = new AggregateOperationFactory(new IOperationFactory[] { new InsertOperationFactory(), new UpdateOperationFactory()});
 
         static void Main(String[] args)
         {
             try 
             {
-                var client = new MongoClient("mongodb://localhost:27100");
-                var server = client.GetServer();
-                var database = server.GetDatabase("local");
-                var collection = database.GetCollection("oplog.rs");
+                var config = (MoonghySection)ConfigurationManager.GetSection("moonghy");
+                var collection = config.GetCollection();
 
                 // to test the tailable cursor manually insert documents into the test.capped collection
                 // while this program is running and verify that they are echoed to the console window
