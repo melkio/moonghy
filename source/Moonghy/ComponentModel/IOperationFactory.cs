@@ -1,9 +1,10 @@
 ﻿using MongoDB.Bson;
+using Moonghy.Core;
 using System;
 
-namespace Moonghy.Core
+namespace Moonghy.ComponentModel
 {
-    public interface IOperationFactory
+    interface IOperationFactory
     {
         String Code { get; }
         Operation ComposeFrom(BsonDocument document);

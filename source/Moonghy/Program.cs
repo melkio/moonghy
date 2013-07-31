@@ -15,16 +15,19 @@ namespace Moonghy
 {
     class Program
     {
-        static IEnumerable<IOperationHandler> handlers = new IOperationHandler[] 
-        {
-        };
-
-        static AggregateOperationFactory factory = new AggregateOperationFactory(new IOperationFactory[] { new InsertOperationFactory(), new UpdateOperationFactory()});
+        static IEnumerable<IOperationHandler> handlers;
+        static AggregateOperationFactory factory;
 
         static void Main(String[] args)
         {
             try 
             {
+                var bootstrapper = new Bootstrapper(AppDomain.CurrentDomain.BaseDirectory);
+                var container = bootstrapper.Boot();
+
+                handlers = container.GetAllInstances<IOperationHandler>();
+                factory = container.GetInstance<AggregateOperationFactory>();
+
                 var config = (MoonghySection)ConfigurationManager.GetSection("moonghy");
                 var collection = config.GetCollection();
 

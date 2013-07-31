@@ -40,6 +40,9 @@
     <Reference Include="MongoDB.Driver">
       <HintPath>..\packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -50,8 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Configuration\ConfigurationExtension.cs" />
     <Compile Include="Configuration\MoonghySettingsElement.cs" />
     <Compile Include="Configuration\MoonghySection.cs" />
+    <Compile Include="DefaultRegistry.cs" />
     <Compile Include="Runtime\AggregateOperationFactory.cs" />
     <Compile Include="ComponentModel\IOperationFactory.cs" />
     <Compile Include="Program.cs" />
