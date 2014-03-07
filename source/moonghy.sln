@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{455C84
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonghy.Test", "Moonghy.Test\Moonghy.Test.csproj", "{D56E2C68-AE1C-450E-A6B1-BD878F3BFD24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +24,10 @@ Global
 		{D2AC5B20-4A7D-4C70-BD5B-1CD6EDC3C230}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2AC5B20-4A7D-4C70-BD5B-1CD6EDC3C230}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2AC5B20-4A7D-4C70-BD5B-1CD6EDC3C230}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D56E2C68-AE1C-450E-A6B1-BD878F3BFD24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D56E2C68-AE1C-450E-A6B1-BD878F3BFD24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D56E2C68-AE1C-450E-A6B1-BD878F3BFD24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D56E2C68-AE1C-450E-A6B1-BD878F3BFD24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
